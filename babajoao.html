@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Invitation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .page-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            perspective: 1500px;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
+        }
+
+        .page.turning {
+            transform: rotateY(-130deg);
+        }
+
+        .page-front,
+        .page-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080') center/cover;
+            padding: 2rem;
+        }
+
+        .page-front {
+            background: black;
+        }
+
+        .page-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Create page fold shadow effect */
+        .page-front::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 95%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .page.turning .page-front::after {
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1));
+            transition: background 1s ease-in-out;
+        }
+
+        .pulsing-banner {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translateX(-50%) scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: translateX(-50%) scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: translateX(-50%) scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #059669;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .pulsing-banner {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="page">
+            <div class="page-front">
+                <img src="pombal_aguarela.jpeg" alt="Invitation Cover">
+            </div>
+            <div class="page-back">
+                <div class="form-container">
+                    <h2 class="form-title">RSVP</h2>
+                    <form id="rsvpForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <button type="submit">Send RSVP</button>
+                    </form>
+                    <div id="successMessage" class="success-message">
+                        Thank you for your RSVP!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pulsing-banner">Click to open invitation</div>
+    </div>
+
+    <script>
+        const page = document.querySelector('.page');
+        const banner = document.querySelector('.pulsing-banner');
+        let isAnimating = false;
+        
+        page.addEventListener('click', () => {
+            if (isAnimating) return;
+            
+            isAnimating = true;
+            page.classList.add('turning');
+            banner.style.display = 'none';
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 1000);
+        });
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+            };
+            
+            console.log('Form submitted:', formData);
+            
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
