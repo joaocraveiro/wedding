@@ -101,7 +101,7 @@ const translations = {
         giftText: "Dear Family and Friends,",
         giftText2: "Thank you so much for being part of our special day!",
         giftText3: 'You may be thinking, "What would they really like to receive for their wedding?" To make it easier for you, instead of worrying about choosing the perfect gift (which, we admit, can be quite difficult), we would love a contribution towards our future together!',
-        giftText4: "Whether it’s for our dream honeymoon or helping us moving to a new home, any amount you can offer will be greatly appreciated.",
+        giftText4: "Whether it's for our dream honeymoon or helping us moving to a new home, any amount you can offer will be greatly appreciated.",
         giftText5: "Thank you for celebrating this moment with us!",
         giftText6: "Bem haja",
         rsvpTitle: "RSVP",
@@ -297,6 +297,29 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.nav-links').classList.toggle('active');
     });
 
+    // Add guest functionality
+    const addPersonBtn = document.getElementById('addPersonBtn');
+    const namesContainer = document.getElementById('namesContainer');
+    let guestCount = 1;
+
+    if (addPersonBtn && namesContainer) {
+        addPersonBtn.addEventListener('click', function() {
+            guestCount++;
+            const newFormGroup = document.createElement('div');
+            newFormGroup.className = 'form-group';
+            newFormGroup.innerHTML = `
+                <label for="fullName${guestCount}" data-translate="rsvpFormNameLabel">Nome Completo:</label>
+                <div class="name-input-group">
+                    <input type="text" id="fullName${guestCount}" name="fullName[]" required>
+                    <button type="button" class="remove-name-btn" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            namesContainer.appendChild(newFormGroup);
+        });
+    }
+
     // Card Flip Animation
     const flipCardInner = document.querySelector('.flip-card-inner');
     let isFront = true;
@@ -334,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initial automatic switch after 2 seconds
-    setTimeout(window.switchImage, 2000);
+    //setTimeout(window.switchImage, 2000);
 
     // Add click handler to switch images
     flipCardInner.addEventListener('click', window.switchImage);
