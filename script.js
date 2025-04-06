@@ -19,12 +19,11 @@ const translations = {
         venueText3: "Estacionamento disponível no local. Serviço de taxi disponível para regresso aos hotéis.",
         accommodationTitle: "Onde Ficar",
         accommodationSubtitle: "Hotéis Recomendados",
-        accommodationText1: "Para sua conveniência, reservamos blocos de quartos nos seguintes hotéis próximos ao local do casamento:",
-        accommodationHotel1: "Hotel Convento do Seixo",
-        accommodationHotel1Desc: "Localizado no centro da cidade, a 5 minutos da igreja. Oferece quartos confortáveis e um restaurante no local.",
-        accommodationHotel2: "Hotel Alambique",
-        accommodationHotel2Desc: "Situado nas montanhas, a 10 minutos do local da recepção. Oferece quartos confortáveis e um restaurante no local.",
-        accommodationNote: "Por favor, mencione 'Casamento B&J' ao fazer sua reserva para obter as tarifas especiais do grupo.",
+        accommodationText2: "Aconselhamos a reservar quarto num dos seguintes hotéis. Também há várias alternativas para alguer em plataformas como:",
+        accommodationHotel2: "Hotel Convento do Seixo *****",
+        accommodationHotel2Desc: "Hotel acolhedor localizado na Serra da Gardunha, a apenas 5 minutos da igreja e a 7 minutos da quinta. Mencione 'Casamento Bárbara e João' ao fazer sua reserva para obter 10% de desconto.",
+        accommodationHotel1: "Hotel Alambique ****",
+        accommodationHotel1Desc: "Resort moderno localizado à saída do Fundão com piscinas, SPA e restaurante. Excelente localização a 6 minutos da igreja e a 7 minutos da quinta.",        
         storyTitle: "Nossa História",
         storySubtitle: "Como Nos Conhecemos",
         storyText1: "Nossa história começou há cinco anos quando nos conhecemos em uma festa de aniversário de um amigo em comum. O que começou como uma conversa casual sobre nossa paixão compartilhada por caminhadas se transformou em uma conexão profunda que tem crescido mais forte a cada dia.",
@@ -74,13 +73,11 @@ const translations = {
         venueText2: "Join us to celebrate at ",
         venueText3: "Parking available on site. Taxi service available for return to hotels.",
         accommodationTitle: "Where to Stay",
-        accommodationSubtitle: "Recommended Hotels",
-        accommodationText1: "For your convenience, we have reserved room blocks at the following hotels near the wedding venue:",
-        accommodationHotel1: "Hotel Fundão",
-        accommodationHotel1Desc: "Located in the city center, 5 minutes from the church. Offers comfortable rooms and an on-site restaurant.",
-        accommodationHotel2: "Hotel Serra da Gardunha",
-        accommodationHotel2Desc: "Situated in the mountains, 10 minutes from the reception venue. Offers stunning views and a spa.",
-        accommodationNote: "Please mention 'B&J Wedding' when making your reservation to receive our group rates.",
+        accommodationSubtitle: "Recommended Hotels",        
+        accommodationHotel1: "Hotel Alambique ****",
+        accommodationHotel1Desc: "Modern resort located at the exit of Fundão with pools, SPA and restaurant. Excellent location just 6 minutes from the church and 7 minutes from the reception venue.",
+        accommodationHotel2: "Hotel Convento do Seixo *****",
+        accommodationHotel2Desc: "Charming hotel located in Serra da Gardunha, just 5 minutes from the church and 7 minutes from the reception venue. Please mention 'Barbara and João's Wedding' when making your reservation to receive a 10% discount.",        
         storyTitle: "Our Story",
         storySubtitle: "How We Met",
         storyText1: "Our story began five years ago when we met at a mutual friend's birthday party. What started as a casual conversation about our shared passion for hiking turned into a deep connection that has grown stronger each day.",
@@ -357,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initial automatic switch after 2 seconds
-    //setTimeout(window.switchImage, 2000);
+    setTimeout(window.switchImage, 2000);
 
     // Add click handler to switch images
     flipCardInner.addEventListener('click', window.switchImage);
