@@ -13,7 +13,8 @@ const translations = {
         invitation: "Convite",
         venueTitle: "Local",
         venueSubtitle: "Cerimónia",
-        venueText1: "A cerimónia será na Igreja Matriz do Fundão pelas 15:00h do dia 7 de Junho de 2025.",
+        venueText0: "A cerimónia será na ",
+        venueText1: " pelas 15:00h do dia 7 de Junho de 2025.",
         venueSubtitle2: "Copo de Água",
         venueText2: "De seguida juntem-se a nós para celebrar na ",
         venueText3: "Estacionamento disponível no local. Serviço de taxi disponível para regresso aos hotéis.",
@@ -42,9 +43,7 @@ const translations = {
         scheduleDressCode: "Traje: Traje social. A cerimônia será ao ar livre (dependendo do clima), então por favor escolha calçados apropriados.",
         rsvpTitle: "Confirmar Presença",
         rsvpSubtitle: "Por Favor, Junte-se a Nós",
-        rsvpFormTitle: "Por favor confirme a sua presença. Adicione uma entrada por pessoa, incluindo crianças, no formulário abaixo.",
-        rsvpFormDeadline: "Agradecemos uma resposta até ao dia",
-        rsvpFormDeadlineDate: "16 de Abril de 2025.",
+        rsvpFormTitle: "Por favor confirme a sua presença. Adicione uma entrada por pessoa, incluindo crianças, no formulário abaixo.",        
         rsvpFormAttendance: "Vou estar presente?",
         rsvpFormYes: "Sim",
         rsvpFormNo: "Não",
@@ -68,7 +67,8 @@ const translations = {
         invitation: "Invitation",
         venueTitle: "Venue",
         venueSubtitle: "Ceremony",
-        venueText1: "The ceremony will be at Igreja Matriz do Fundão at 3:00 PM on June 7th, 2025.",
+        venueText0: "The ceremony will be at ",
+        venueText1: " at 3:00 PM on June 7th, 2025.",
         venueSubtitle2: "Reception",
         venueText2: "Join us to celebrate at ",
         venueText3: "Parking available on site. Taxi service available for return to hotels.",
@@ -103,9 +103,7 @@ const translations = {
         giftText6: "Bem haja",
         rsvpTitle: "RSVP",
         rsvpSubtitle: "Please Join Us",
-        rsvpFormTitle: "Please confirm your attendance. Add one entry per person, including children, in the form below.",
-        rsvpFormDeadline: "Please respond by",
-        rsvpFormDeadlineDate: "16th of April 2025.",
+        rsvpFormTitle: "Please confirm your attendance. Add one entry per person, including children, in the form below.",        
         rsvpFormAttendance: "Will you be attending?",
         rsvpFormYes: "Yes",
         rsvpFormNo: "No",
@@ -145,8 +143,7 @@ function switchLanguage(lang) {
                 const link = element.querySelector('a');
                 const text = translations[lang][key].replace(/<a[^>]*>.*?<\/a>/, '');
                 element.innerHTML = text + link.outerHTML;
-            } else if (element.tagName === 'SPAN') {
-                console.log("span", translations[lang][key], key, lang, element.textContent);
+            } else if (element.tagName === 'SPAN') {                
                 // Handle span elements (like in radio buttons)
                 element.textContent = translations[lang][key];
             } else if (element.tagName === 'LABEL') {
@@ -185,6 +182,12 @@ function switchLanguage(lang) {
             }
         }
     });
+
+    // Update invitation image based on language
+    const invitationBack = document.getElementById('invitationBack');
+    if (invitationBack) {
+        invitationBack.src = lang === 'en' ? 'img/convite_final_eng.png' : 'img/convite_final2.png';
+    }
 
     // Update accommodation section
     const accommodationSection = document.querySelector('#accommodation');
@@ -238,8 +241,7 @@ function switchLanguage(lang) {
         }
         
         const paragraphs = rsvpSection.querySelectorAll('p');
-        if (paragraphs[0]) paragraphs[0].textContent = translations[lang].rsvpFormTitle;
-        if (paragraphs[1]) paragraphs[1].innerHTML = `${translations[lang].rsvpFormDeadline} <b>${translations[lang].rsvpFormDeadlineDate}</b>`;
+        if (paragraphs[0]) paragraphs[0].textContent = translations[lang].rsvpFormTitle;        
         
         // Update form elements
         const form = rsvpSection.querySelector('#rsvpForm');
